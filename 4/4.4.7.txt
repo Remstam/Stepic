@@ -1,0 +1,7 @@
+bool check_equals(Expression const *left, Expression const *right)
+{
+    size_t* lptr = (size_t*)*((size_t**)left);
+    size_t* rptr = (size_t*)*((size_t**)right);
+    
+    return lptr == rptr;
+}

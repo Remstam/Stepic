@@ -1,0 +1,12 @@
+unsigned strlen(const char *str)
+{
+    unsigned len = 0;
+    char* s = (char*)str;
+    while (*s != '\0')
+    {
+        s++;
+        len++;
+    }
+    
+    return len;
+}

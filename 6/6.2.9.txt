@@ -1,0 +1,27 @@
+#include <iostream>
+
+
+// ¬есь вывод должен осуществл€тьс€ в поток out,
+// переданный в качестве параметра.
+//
+// ћожно заводить любые вспомогательные функции,
+// структуры или даже измен€ть сигнатуру flatten,
+// но при этом все примеры вызова из задани€ должны
+// компилироватьс€ и работать.
+
+template <typename T>
+void flatten(const Array<T>& array, std::ostream& out)
+{
+    size_t n = array.size();
+    for (size_t i = 0; i < n; ++i) {
+        out << array[i] << " ";
+    }
+}
+
+template <typename T>
+void flatten(const Array<Array<T> >& array, std::ostream& out) {
+    size_t n = array.size();
+    for (size_t i = 0; i < n; ++i) {
+        flatten(array[i], out);
+    }
+}

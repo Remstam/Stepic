@@ -1,0 +1,28 @@
+
+#include <iostream>
+using namespace std;
+
+int GetIntLog2(int a)
+{
+    int log2 = 0;
+    while (a > 1)
+    {
+        a >>= 1;
+        log2++;
+    }
+    
+    return log2;
+}
+
+int main()
+{
+    int t, a;
+    cin >> t;
+    for (int i = 0; i < t; i++)
+    {
+        cin >> a;
+        cout << GetIntLog2(a) << endl;
+    }
+    
+    return 0;
+}

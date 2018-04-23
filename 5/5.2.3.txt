@@ -1,0 +1,68 @@
+struct Rational
+{
+    Rational(int numerator = 0, int denominator = 1);
+
+    void add(Rational rational);
+    void sub(Rational rational);
+    void mul(Rational rational);
+    void div(Rational rational);
+
+    void neg();
+    void inv();
+    double to_double() const;
+    
+    Rational & operator+=(Rational const& r) {
+        this->add(r);
+        return *this;
+    }
+    
+    Rational & operator+=(int i) {
+        this->add(i);
+        return *this;
+    }
+    
+    Rational & operator-=(Rational const& r) {
+        this->sub(r);
+        return *this;
+    }
+    
+    Rational & operator-=(int i) {
+        this->sub(i);
+        return *this;
+    }
+    
+    Rational & operator*=(Rational const& r) {
+        this->mul(r);
+        return *this;
+    }
+    
+    Rational & operator*=(int i) {
+        this->mul(i);
+        return *this;
+    }
+    
+    Rational & operator/=(Rational const& r) {
+        this->div(r);
+        return *this;
+    }
+    
+    Rational & operator/=(int i) {
+        this->div(i);
+        return *this;
+    }
+    
+    Rational operator-() const {
+        Rational temp(*this);
+        temp.neg();
+        return temp;
+    }
+    
+    Rational operator+() const {
+        Rational temp(*this);
+        return temp;
+    }
+    
+private:
+    int numerator_;
+    int denominator_;
+};

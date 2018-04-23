@@ -1,0 +1,16 @@
+void strcat(char *to, const char *from)
+{
+    char* t = to;
+    char* f = (char*)from;
+    while (*t != '\0')
+        t++;
+    
+    while (*f != '\0')
+    {
+        *t = *f;
+        t++;
+        f++;
+    }
+    
+    *t = '\0';
+}

@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+int GetD(int a, int b, int c)
+{
+    return b * b - 4 * a * c;
+}
+
+double GetRoot(int a, int b, int d, int sign)
+{
+    return (-b + sign * sqrt((double)d)) / (2 * a);
+}
+
+int main()
+{
+    const string NO_REAL_ROOTS = "No real roots";
+    int a, b, c, d;
+    cin >> a >> b >> c;
+    d = GetD(a, b, c);
+    
+    if (d < 0)
+        cout << NO_REAL_ROOTS << endl;
+    else
+    {
+        double first = GetRoot(a, b, d, -1);
+        double second = GetRoot(a, b, d, 1);
+        cout << first << " " << second << endl;
+    }
+
+    return 0;
+}

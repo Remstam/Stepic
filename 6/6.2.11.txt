@@ -1,0 +1,118 @@
+#include<iostream>
+// Ёти классы реализовывать заново не нужно
+struct ICloneable;
+
+// ѕоле data_ типа T в классе ValueHolder
+// открыто, к нему можно обращатьс€
+template <typename T>
+struct ValueHolder;
+
+// Ёто класс, который вам нужно реализовать
+class Any
+{
+    public:
+    // ¬ классе Any должен быть конструктор,
+    // который можно вызвать без параметров,
+    // чтобы работал следующий код:
+    //    Any empty; // empty ничего не хранит
+        Any() : data_(0){}
+    // ¬ классе Any должен быть шаблонный
+    // конструктор от одного параметра, чтобы
+    // можно было создавать объекты типа Any,
+    // например, следующим образом:
+    //    Any i(10); // i хранит значение 10
+        template<typename T>
+        Any(const T& parameter) : data_(new ValueHolder<T>(parameter)) {}
+    // Ќе забудьте про деструктор. ¬се выделенные
+    // ресурсы нужно освободить.
+        ~Any() {
+            delete data_;
+        }
+    // ¬ классе Any также должен быть конструктор
+    // копировани€ (вам поможет метод clone
+    // интерфейса ICloneable)
+        Any(const Any& toCopy) {
+            ICloneable* toCopyData = toCopy.data_;
+            if (toCopyData == NULL) {
+                data_ = NULL;
+            } else {
+                data_ = toCopyData->clone();
+            }
+        }
+    // ¬ классе должен быть оператор присваивани€ и/или
+    // шаблонный оператор присваивани€, чтобы работал
+    // следующий код:
+    //    Any copy(i); // copy хранит 10, как и i
+    //    empty = copy; // empty хранит 10, как и copy
+    //    empty = 0; // а теперь empty хранит 0
+        Any& swap(Any& obj) {
+            std::swap(data_, obj.data_);
+            return *this;
+        }
+        
+        Any &operator=(const Any& obj) { 
+            if (this == &obj) {
+                return (*this);
+            }
+            
+            return Any(obj).swap(*this);
+        } 
+        
+        template<typename T>
+        Any& operator=(const T& obj) {
+            Any objRef = Any(obj);
+			// <PARANOIC>
+            if (this == &objRef) {
+                return *this;
+            }
+			// </PARANOIC>
+            
+            return objRef.swap(*this);
+        }
+    // Ќу и наконец, мы хотим уметь получать хранимое
+    // значение, дл€ этого определите в классе Any
+    // шаблонный метод cast, который возвращает
+    // указатель на хранимое значение, или нулевой
+    // указатель в случае несоответстви€ типов или
+    // если объект Any ничего не хранит:
+    //    int *iptr = i.cast<int>(); // *iptr == 10
+    //    char *cptr = i.cast<char>(); // cptr == 0,
+    //        // потому что i хранит int, а не char
+    //    Any empty2;
+    //    int *p = empty2.cast<int>(); // p == 0
+    // ѕри реализации используйте оператор dynamic_cast.
+    //
+    // ƒопустим у вас есть два наследника класса Base: Derived1 
+    // и Derived2.  роме того у вас есть указать baseptr
+    // типа Base*.  ак проверить указывает ли этот указатель на
+    // самом деле на объект класса Derived1 или на объект 
+    // класса Derived2? ƒл€ этого можно воспользоватьс€ dynamic_cast-ом:
+    //
+    // Derived1 *derived1ptr = dynamic_cast<Derived1*>(baseptr);
+    //
+    // ≈сли derived1ptr не равен 0, то  baseptr на самом деле
+    // указывал на объект класса Derived1, если же derivedptr равен 0,
+    // то baseptr на самом деле указывал на объкт какого-то другого 
+    // класса (например, Derived2). Ёто можно проверить так:
+    //
+    // Derived2 *derived2ptr = dynamic_cast<Derived2*>(baseptr);
+    //
+    // dynamic_cast работает только, если в классе есть хот€ бы
+    // один виртуальный метод, и в шаблоне ValueHolder такой
+    // как раз имеетс€.
+        template<typename T>
+        T* cast() const {
+            if (data_ == NULL) {
+                return NULL;
+            }
+            
+            ValueHolder<T>* holder = dynamic_cast<ValueHolder<T>* >(data_);
+            if (holder == NULL) {
+                return NULL;
+            }
+            
+            return &(holder->data_);
+        }
+    public:
+        ICloneable* data_;
+};

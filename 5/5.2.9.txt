@@ -1,0 +1,49 @@
+#include <cstddef> // size_t
+
+struct String {
+	String(const char *str = "");
+	String(size_t n, char c);
+    String(const char *str, size_t len) {
+        char *sstr = (char*)str;
+        char *temp = new char[len + 1];
+        for (int i = 0; i < len; ++i) {
+            temp[i] = *sstr;
+            sstr++;
+        }
+        
+        temp[len] = '\0';
+        
+        this->str = temp;
+        size = len;
+    }
+    
+	~String();
+
+    String(const String &other);
+    String &operator=(const String &other);
+
+	void append(const String &other);
+
+	size_t size;
+	char *str;
+    
+    struct Substring {
+        Substring(char* str, size_t size) {
+            sstr = str;
+            ssize = size;
+        }
+        
+        String operator[](size_t sz) const {
+            String st(sstr + ssize, sz - ssize);
+            return st;
+        }
+        
+        size_t ssize;
+        char *sstr;
+    };
+    
+    Substring operator[](size_t sz) const {
+        Substring subStr(str, sz);
+        return subStr;
+    }
+};

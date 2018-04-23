@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cstring>
+
+char* AddBlock(char* str, int* curLength)
+{
+    int oldLength = *curLength;
+    *curLength *= 2;
+    
+    char* temp = new char[*curLength + 1];
+    for (int i = 0; i < oldLength; ++i)
+    {
+        temp[i] = str[i];
+    }
+    
+    delete[] str;
+    return temp;
+}
+
+char *getline()
+{
+    const int START_BLOCK_LENGTH = 100; 
+    int curLength = START_BLOCK_LENGTH;
+    int curPos = 0;
+    
+    char c;
+    char* resultString = new char[START_BLOCK_LENGTH + 1];
+    
+    while(std::cin.get(c) && c != '\n')
+    {
+        if (curPos == curLength)
+        {
+            resultString = AddBlock(resultString, &curLength);
+        }
+        
+        resultString[curPos++] = c;
+    }
+    
+    resultString[curPos] = '\0';
+    return resultString;
+}

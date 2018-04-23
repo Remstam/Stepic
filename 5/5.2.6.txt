@@ -1,0 +1,65 @@
+struct Rational
+{
+    Rational(int numerator = 0, int denominator = 1);
+
+    void add(Rational rational);
+    void sub(Rational rational);
+    void mul(Rational rational);
+    void div(Rational rational);
+    
+    int getD() {
+        return denominator_;
+    }
+    
+    int getN() {
+        return numerator_;
+    }
+    
+    void neg();
+    void inv();
+    double to_double() const;
+
+    Rational& operator+=(Rational rational);
+    Rational& operator-=(Rational rational);
+    Rational& operator*=(Rational rational);
+    Rational& operator/=(Rational rational);
+
+    Rational operator-() const;
+    Rational operator+() const;
+
+private:
+    int numerator_;
+    int denominator_;
+};
+
+Rational operator+(Rational lhs, Rational rhs);
+Rational operator-(Rational lhs, Rational rhs);
+Rational operator*(Rational lhs, Rational rhs);
+Rational operator/(Rational lhs, Rational rhs);
+
+bool operator==(Rational const& r1, Rational const& r2) {
+    Rational t1(r1);
+    Rational t2(r2);
+    return t1.getD() * t2.getN() == t1.getN() * t2.getD();
+}
+
+bool operator!=(Rational const& r1, Rational const& r2) {
+    return !(r1 == r2);
+}
+
+bool operator<(Rational const& r1, Rational const& r2) {
+    Rational temp(r1-r2);
+    return temp.getD() * temp.getN() < 0;
+}
+
+bool operator>(Rational const& r1, Rational const& r2) {
+    return r2 < r1;
+}
+
+bool operator<=(Rational const& r1, Rational const& r2) {
+    return !(r2 < r1);
+}
+
+bool operator>=(Rational const& r1, Rational const& r2) {
+    return !(r1 < r2);
+}

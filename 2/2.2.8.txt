@@ -1,0 +1,17 @@
+void swap (unsigned &a, unsigned &b)
+{
+    unsigned temp = a;
+    a = b;
+    b = temp;
+}
+
+unsigned gcd(unsigned a, unsigned b)
+{
+    if (a < b)
+        swap(a, b);
+    
+    if (b == 0)
+        return a;
+    
+    return gcd(b, a % b);
+}

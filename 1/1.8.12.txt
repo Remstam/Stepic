@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    /* ... */
+
+    char c = '\0';
+    while (cin.get(c)) {
+        if (c != ' ')
+            cout << c;
+        else
+        {
+            cout << c;
+            while (cin.get(c))
+            {
+                if (c != ' ')
+                {
+                    cout << c;
+                    break;
+                }
+            }
+        }
+    }
+
+	return 0;
+}

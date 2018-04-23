@@ -1,0 +1,17 @@
+int ** transpose(const int * const * m, unsigned rows, unsigned cols)
+{
+    int **ans = new int*[cols];
+    ans[0] = new int[cols * rows];
+    for (int i = 1; i != cols; i++)
+        ans[i] = ans[i - 1] + rows;
+    
+    for (int i = 0; i < cols; i++)
+    {
+        for (int j = 0; j < rows; j++)
+        {
+            ans[i][j] = m[j][i];
+        }
+    }
+    
+    return ans;
+}

@@ -1,0 +1,43 @@
+int strstr(const char *text, const char *pattern)
+{
+    char* t = (char*)text;
+    char* p = (char*)pattern;
+    
+    if (*p == '\0')
+        return 0;
+    
+    while (*t != '\0')
+    {
+        bool flag = true;
+        char* tt = t;
+        
+        while (*p != '\0')
+        {
+        	if (*p != *tt)
+            {
+                flag = false;
+                break;
+            }
+            
+            p++;
+            tt++;
+            
+            if (*p == '\0')
+               break;
+            
+            if (*tt == '\0')
+            {
+                flag = false;
+                break;
+            }
+        }
+        
+        if (flag)
+            return t - (char*)text;
+        
+        p = (char*)pattern;
+        t++;
+    }
+    
+    return -1;
+}

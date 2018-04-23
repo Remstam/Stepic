@@ -1,0 +1,17 @@
+char *resize(const char *str, unsigned size, unsigned new_size)
+{
+	char* strr = (char*)str;
+        
+    char* newstr = new char[new_size];
+    char* newstrr = newstr;
+    
+    for (int i = 0; i < new_size; i++)
+    {
+        *newstrr = *strr;
+        newstrr++;
+        strr++;
+    }
+    
+    delete[] str;
+    return newstr;
+}

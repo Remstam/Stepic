@@ -1,0 +1,1 @@
+#define MAX(x, y, r) ({int xx = (x); int yy = (y); (r) = xx > yy ? xx : yy;});/* присваивает r максимум из x и y */
