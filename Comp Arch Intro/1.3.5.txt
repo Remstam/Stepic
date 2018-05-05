@@ -1,0 +1,3 @@
+# The only allowed simbols are 'X', 'Y', 'Z', '!', '&', '^', '|', '(', ')' and spaces
+# —ƒÕ‘, — Õ‘, ∆Â„‡
+expression="(X&!Y&!Z)|(!X&Y&!Z)|(!X&!Y&Z)"
