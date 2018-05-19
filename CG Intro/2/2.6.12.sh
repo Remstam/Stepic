@@ -1,0 +1,1 @@
+ffmpeg -i in.mp4 -vf drawtext="fontfile=Arial.ttf: text='I am learning computer graphics!': fontcolor=white: fontsize=16: x=6: y=552" -c:a copy out.mp4

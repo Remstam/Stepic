@@ -1,0 +1,1 @@
+ffmpeg -i in.avi -c:v libx264 -profile:v high -level:v 4.2 -b:v 5000k -minrate 5000k -maxrate 5000k -bufsize 5000k -s 1280x720 -r 25 -bf 2 -g 12.5 -c:a libfaac -b:a 128k -ar 96000 out.mp4

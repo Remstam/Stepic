@@ -1,0 +1,1 @@
+convert PNG16-PNG8.png -resize 1x1\! -format '%[pixel:s]' info:
